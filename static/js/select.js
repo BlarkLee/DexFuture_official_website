@@ -10,10 +10,17 @@ const sceneButtonTextsVideo = {
   1: ["1000", "2000", "5000"], // Ship
 };*/
 
+/*
 const sceneButtonTextsVideo = {
   0: ["083f7@0_titled", "e1fa6@0_titled", "817fb@0_titled", "1292e@0_titled"], // artimano
   1: ["9fc3e@0_titled", "66c7f@0_titled", "b9695@0_titled"], // zero-shot
   2: ["083f7@0_shadow_titled", "e1fa6@0_allegro_titled", "817fb@0_shadow_titled", "1292e@0_shadow_titled"]
+};
+*/
+
+const sceneButtonTextsVideo = {
+  0: ["083f7_label", "9fc3e_label", "9bb17_label", "cde36_label", "fc88d_label"], // system1-0
+  1: ["planning_label"], // planning
 };
 
 var currentEpochImage = "500";
@@ -23,6 +30,7 @@ const sceneButtonTextsImage = {
   1: ["500", "1000", "1500", "2500", "3500", "5000"], // Ship
 };
 
+/*
 document.addEventListener("DOMContentLoaded", function () {
   let video = document.getElementById("video_tum");
   let progressBar = document.getElementById("video_progress_tum");
@@ -128,6 +136,67 @@ document.addEventListener("DOMContentLoaded", function () {
   video_agn.addEventListener("play", function () {
     playPauseBtn_agn.textContent = "Pause";
 });
+});
+*/
+
+document.addEventListener("DOMContentLoaded", function () {
+  function bindVideoControls(videoId, progressId, buttonId) {
+    const video = document.getElementById(videoId);
+    const progressBar = document.getElementById(progressId);
+    const playPauseBtn = document.getElementById(buttonId);
+
+    // If this video block does not exist in the current HTML page, skip it.
+    if (!video || !progressBar || !playPauseBtn) {
+      console.warn("Skipping missing video controls:", videoId, progressId, buttonId);
+      return;
+    }
+
+    video.addEventListener("loadedmetadata", function () {
+      progressBar.max = video.duration;
+      progressBar.value = video.currentTime;
+    });
+
+    video.addEventListener("timeupdate", function () {
+      if (!progressBar.dragging) {
+        progressBar.max = video.duration;
+        progressBar.value = video.currentTime;
+      }
+    });
+
+    progressBar.addEventListener("input", function () {
+      progressBar.dragging = true;
+      video.currentTime = Number(progressBar.value);
+    });
+
+    progressBar.addEventListener("change", function () {
+      video.currentTime = Number(progressBar.value);
+      progressBar.dragging = false;
+    });
+
+    playPauseBtn.addEventListener("click", function () {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.textContent = "Pause";
+      } else {
+        video.pause();
+        playPauseBtn.textContent = "Play";
+      }
+    });
+
+    video.addEventListener("play", function () {
+      playPauseBtn.textContent = "Pause";
+    });
+
+    video.addEventListener("pause", function () {
+      playPauseBtn.textContent = "Play";
+    });
+
+    playPauseBtn.textContent = video.paused ? "Play" : "Pause";
+  }
+
+  bindVideoControls("video_tum", "video_progress_tum", "play_pause_btn_tum");
+  bindVideoControls("video_bonn", "video_progress_bonn", "play_pause_btn_bonn");
+  bindVideoControls("video_agn", "video_progress_agn", "play_pause_btn_agn");
 });
 
 
@@ -275,3 +344,4 @@ function ChangeEpochImage(idx){
   new_image_dir2 = new_scr2.join('/');
   image2.src = new_image_dir2;
 }
+

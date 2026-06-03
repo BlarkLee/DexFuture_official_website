@@ -46,6 +46,20 @@
       }
   </script>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
 </head>
 
 <body>
@@ -55,16 +69,15 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">PhysGraph: Physically-Grounded Graph-Transformer Policies for Bimanual Dexterous Hand–Tool–Object Manipulation</h1>
+          <h1 class="title is-1 publication-title">DexFuture: Hierarchical Future-State Visuomotor Targeting for Bimanual Dexterous Tool Use</h1>
           <div class="is-size-3 publication-authors">
             <span class="author-block">
               <a href="" style="font-size: 20px;">Runfa Blark Li</a>, 
-              <a href="" style="font-size: 20px;">David Minkwan Kim</a>, 
-              <a href="" style="font-size: 20px;">Xinshuang Liu</a>, 
-              <a href="" style="font-size: 20px;">Dwait Bhatt</a>, 
+              <a href="" style="font-size: 20px;">Kuang-Ting Tu</a>, 
               <a href="" style="font-size: 20px;">Nikola Raicevic</a>, 
+              <a href="" style="font-size: 20px;">Dwait Bhatt</a>, 
+              <a href="" style="font-size: 20px;">Xinshuang Liu</a>, 
               <a href="" style="font-size: 20px;">Keito Suzuki</a>, 
-              <a href="" style="font-size: 20px;">Xin Lin</a>, <br>
               <a href="" style="font-size: 20px;">Ki Myung Brian Lee</a>, 
               <a href="" style="font-size: 20px;">Nikolay Atanasov</a>,
               <a href="" style="font-size: 20px;">Truong Nguyen</a>
@@ -109,7 +122,7 @@
               -->
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/BlarkLee/PhysGraph.git"
+                <a href=""
                    class="external-link button is-large is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -135,16 +148,19 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Bimanual dexterous manipulation, particularly involving complex tool use, remains a formidable challenge in embodied AI due to the high-dimensional state space 
-          and sophisticated contact dynamics required to coordinate multi-fingered hands. Existing state-of-the-art (SOTA) methods typically rely on global policy that 
-          treat the system state as a flattened vector, thereby discarding the rich structural and topological information inherent to articulated hands. 
-          To address this, we present PhysGraph, a novel physically-grounded graph-transformer policy designed explicitly for challenging bimanual hand-tool-object manipulation. 
-          Unlike prior works, we formulate the bimanual system as a kinematic graph and introduce a per-link tokenization strategy that preserves fine-grained local state 
-          information. Crucially, we propose a physically-grounded bias generator that injects learning-based structural priors—including kinematic spatial distance, 
-          dynamic contact states, geometric proximity, and anatomical properties—directly into the attention mechanism. This allows the policy to explicitly reason about 
-          physical connectivity and interaction logic rather than learning it implicitly from sparse rewards. Extensive experiments on the OakInk2 dataset demonstrate that 
-          PhysGraph significantly outperforms baselines in manipulation precision and task success rates. Furthermore, the inherent topological flexibility of our architecture 
-          enables zero-shot generalization to unseen tool/object geometries, and embodiment-agnostic deployment across diverse robotic hands (Shadow, Allegro, Inspire).
+            Bimanual dexterous tool use remains challenging for robots due to high-dimensional hand configurations and complex hand-tool-object 
+            dynamics and contact. Most existing control policies depend on future configuration references provided from demonstrations, 
+            while future action-conditioned world models require slow online planning over high-dimensional action sequences. 
+            A significant challenge is generating a dynamically consistent future reference trajectory without relying on privileged states from 
+            demonstrations or slow counterfactual planning. We propose <strong>DexFuture</strong>, a hierarchical system that couples a high-level 
+            Future-State Visuomotor Target Predictor with a low-level Target-Conditioned Structured Dexterous Policy. 
+            Conditioned on egocentric RGB, proprioceptive and geometric history, 
+            the high-level predictor constructs structured hand-tool-object visuomotor embeddings and uses a horizon-conditioned transformer to 
+            generate a multi-step future target trajectory. Then, the low-level policy tracks them with a target-conditioned per-link transformer. 
+            This hierarchy decouples coarse future reference generation from fine-grained action control, 
+            and slow long-horizon semantic prediction from high-frequency execution. 
+            On OakInk2 bimanual tool-use tasks, DexFuture achieves 90% of the privileged-oracle performance, compared to 7% for a no-reference policy. 
+            DexFuture operates at 60 Hz, approximately 250 times faster than DexWM-style Cross-Entropy Method (CEM) planning with a future action-conditioned world model.
           </p>
         </div>
       </div>
@@ -158,9 +174,9 @@
         <div class="content has-text-justified">
             <div class="content has-text-justified">
                 <p>
-                  <li>We propose PhysGraph, the first graph-transformer policy for high-DoF challenging bimanual dexterous tool-use, which explicitly models the hand-tool-object interactions as a dynamic kinematic graph and processes per-link tokenized multi-model observations.</li>
-                  <li>We introduce a novel Physically-Grounded Bias Generator that injects learning-based structural priors into transformer attention, including spatial/topological bias, edge-type bias, geometric proximity bias, and anatomical priors via head-specific masking, enabling the policy to learn physically plausible tool-use manipulation precisely.</li>
-                  <li>Extensive experiments on challenging bimanual tool-use tasks demonstrate that PhysGraph significantly outperforms SOTA baseline in success rate and motion fidelity, supports zero-shot generalization to unseen tool/object in different tasks, and is embodiment-agnostic to popular robotic dex-hands (Shadow, Allegro, Inspire).</li>
+                  <li>We propose <strong>DexFuture</strong>, a hierarchical future-state visuomotor targeting framework that couples a high-level Future-State Visuomotor Target Predictor with a low-level Target-Conditioned Structured Dexterous Policy, separating coarse future-state guidance from high-frequency dexterous action execution.</li>
+                  <li>We introduce an action-free future target prediction module that replaces privileged future demonstration targets with predicted targets conditioned on RGB and proprioceptive/geometric history, using structured visuomotor tokenization and sparse multi-horizon target prediction.</li>
+                  <li>We validate DexFuture on challenging bimanual dexterous tool-use tasks, showing that predicted targets recover most of the privileged-oracle performance, strongly outperform no-target control, and execute substantially faster than DexWM-style CEM planning.</li>
                 </p>
               </div>
           </div>
@@ -171,16 +187,30 @@
         <div class="content has-text-justified">
             <div class="content has-text-justified">
                 <p>
-                  (a) Physical Graph & Tokenization: The bimanual workspace is modeled as a kinematic graph where nodes represent links of the left/right hands, tools, and objects. 
-                  Nodes are connected by static edges (bones) and dynamic edges (contact). State-based multi-modal observations for each link are processed into parallel input tokens. 
-                  (b) Physically-Grounded Bias Generator: This module computes four distinct biases, which are aggregated into a composite bias matrix. These biases are applied 
-                  via Head-Specific Masking, allowing different attention heads to focus on specific physical relationships. 
-                  (c) Graph Transformer Encoder: The tokenized inputs are processed by the Transformer encoder where the Multi-Head Attention (MHA) is modulated by the generated bias in (b). 
-                  (d) Output Heads: The globally encoded [POL] token is passed to MLP heads to predict the policy action distribution and value function.
+                  <strong>DexFuture</strong> is a hierarchical system for bimanual dexterous tool use that couples a high-level <em>Future-State Visuomotor Target Predictor</em> with a low-level <em>Target-Conditioned Structured Dexterous Policy</em>. 
+                  It removes the need for privileged future demonstration targets by predicting a coarse future-state target trajectory from visuomotor history. 
+                  The predicted targets provide long-horizon guidance for the low-level policy to execute high-frequency contact-rich actions.
                 </p>
               </div>
               <div class="b-dics" style="float: center">
                 <img id="overview" src="./pipeline.png", class="img-spacing">
+              </div>
+          </div>
+
+
+      <center>
+        <h2 class="title is-2">Method</h2>
+        <div class="content has-text-justified">
+            <div class="content has-text-justified">
+                <p>
+    <strong>A.</strong> Given recent egocentric RGB observations and proprioceptive/geometric states, we construct structured visuomotor tokens instead of passing dense image patches to the predictor. Hand-link embeddings are obtained by projecting each link into the image and cross-attending to local visual patches, while tool/object embeddings are built by anchor-aligned visual sampling and entity-state/geometry embeddings.
+    <strong>B.</strong> The Horizon-Conditioned Target Transformer takes the structured embedding history as memory and predicts sparse future structured embeddings at horizons $\mathcal{H}=\{0,2,4,\ldots,16\}$. Future embeddings are first initialized from the latest observed state and modulated with learned future-index embeddings and Fourier horizon encodings, then refined via self-attention and cross-attention to the visuomotor history using AdaLN-Zero transformer blocks. The predicted embeddings are decoded into auxiliary geometric states for supervision, and a $900$-D future target used by the low-level policy.
+    <strong>C.</strong> The target-conditioned structured dexterous policy consumes the current state and the predicted target, tokenizes the bimanual hand-tool-object system into per-link and scene embeddings, and outputs a bimanual action distribution through a transformer encoder and policy head.
+    <strong>D.</strong> During receding-horizon execution, a single forward pass of the visuomotor predictor produces a target trajectory over multiple time steps. Intermediate targets are linearly interpolated to allow high-frequency feedback control. The predictor is trained with supervised latent, state, and target losses, while the policy is trained with PPO against a tracking reward.
+                </p>
+              </div>
+              <div class="b-dics" style="float: center">
+                <img id="overview" src="./method.png", class="img-spacing">
               </div>
           </div>
 
@@ -194,66 +224,37 @@
         <li role="presentation" class="active"><a href="javascript: void(0);"
             onclick="ChangeEpoch(0,0);">Slice bread with a chop knife</a>
         </li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,1);">Shear paper with scissors</a></li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,2);">Brush whiteboard with a brush</a></li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,3);">Pour water to a mug from aother mug</a></li>
+        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,1);">Slice apple with a fruit knife</a></li>
+        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,2);">Shear paper with scissors</a></li>
+        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,3);">Stir in the beaker with a rod</a></li>
+        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch(0,4);">Brush whiteboard with a brush</a></li>
       </ul>
       
-        <div>
+        <div class="result-video-block">
           <!--video class="video" id="video_scene" loop playsinline autoPlay muted
           src="./static/results/lego/video/500.mp4" onplay="resizeAndPlay(this)"></video-->
           <video class="video" id="video_tum" loop playsinline autoPlay muted
-          src="./static/results/artimano/083f7@0_titled.mp4"></video>
+          src="./static/results/system10/083f7_label.mp4"></video>
           <button id="play_pause_btn_tum">Play</button>
           <input type="range" id="video_progress_tum" value="0" min="0" step="0.1">
           <!--canvas class="videoMerge" id="video_scene_merge"></canvas-->
         </div>
 
 
-        <h2 class="subtitle is-3"> Zero-Shot Policy Generation </h2>
+        <h2 class="subtitle is-3"> DexWM-Style CEM-based MPC planning </h2>
         <ul class="nav nav-pills nav-justified" id="video-result-view-ul-bonn" style="width: 60%">
-          <li role="presentation" class="active"><a href="javascript: void(0);"
-              onclick="ChangeEpoch2(1,0);">Train on 817fb@0 (chop-knife cut bread)
-Validate on 9fc3e@0 (fruit-knife cut apple)</a>
-          </li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch2(1,1);">Train on e1fa6@0 
-Validate on 66c7f@0 (brush whiteboard)
-</a></li>
-          <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch2(1,2);">Train on 1292e@0
-Validate on b9695@0 (pour water)
-</a></li>
         </ul>
         
-          <div>
+          <div class="result-video-block">
             <!--video class="video" id="video_scene" loop playsinline autoPlay muted
             src="./static/results/lego/video/500.mp4" onplay="resizeAndPlay(this)"></video-->
             <video class="video" id="video_bonn" loop playsinline autoPlay muted
-            src="./static/results/zeroshot/9fc3e@0_titled.mp4"></video>
+            src="./static/results/planning/planning_label.mp4"></video>
             <button id="play_pause_btn_bonn">Play</button>
             <input type="range" id="video_progress_bonn" value="0" min="0" step="0.1">
             <!--canvas class="videoMerge" id="video_scene_merge"></canvas-->
           </div>
 
-
-      <h2 class="subtitle is-3"> Embodiment-Agnostic Validation </h2>
-      <ul class="nav nav-pills nav-justified" id="video-result-view-ul-agn" style="width: 60%">
-        <li role="presentation" class="active"><a href="javascript: void(0);"
-            onclick="ChangeEpoch3(2,0);">Slice bread with a chop knife (Shadow Hand)</a>
-        </li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch3(2,1);">Shear paper with scissors (Allegro Hand)</a></li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch3(2,2);">Brush whiteboard with a brush (Shadow Hand)</a></li>
-        <li role="presentation"><a href="javascript: void(0);" onclick="ChangeEpoch3(2,3);">Pour water to a mug from aother mug (Shadow Hand)</a></li>
-      </ul>
-      
-        <div>
-          <!--video class="video" id="video_scene" loop playsinline autoPlay muted
-          src="./static/results/lego/video/500.mp4" onplay="resizeAndPlay(this)"></video-->
-          <video class="video" id="video_agn" loop playsinline autoPlay muted
-          src="./static/results/multiembodiment/083f7@0_shadow_titled.mp4"></video>
-          <button id="play_pause_btn_agn">Play</button>
-          <input type="range" id="video_progress_agn" value="0" min="0" step="0.1">
-          <!--canvas class="videoMerge" id="video_scene_merge"></canvas-->
-        </div>
 </section>
 
 <section class="section" id="BibTeX">
