@@ -77,7 +77,7 @@
               <a href="" style="font-size: 20px;">Nikola Raicevic</a>, 
               <a href="" style="font-size: 20px;">Dwait Bhatt</a>, 
               <a href="" style="font-size: 20px;">Xinshuang Liu</a>, 
-              <a href="" style="font-size: 20px;">Keito Suzuki</a>, 
+              <a href="" style="font-size: 20px;">Keito Suzuki</a>, <br>
               <a href="" style="font-size: 20px;">Ki Myung Brian Lee</a>, 
               <a href="" style="font-size: 20px;">Nikolay Atanasov</a>,
               <a href="" style="font-size: 20px;">Truong Nguyen</a>
@@ -92,7 +92,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href=""
+                <a href="https://arxiv.org/abs/2603.01436"
                    class="external-link button is-large is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -101,7 +101,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href=""
+                <a href="https://arxiv.org/abs/2603.01436"
                    class="external-link button is-large is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
@@ -152,7 +152,7 @@
             dynamics and contact. Most existing control policies depend on future configuration references provided from demonstrations, 
             while future action-conditioned world models require slow online planning over high-dimensional action sequences. 
             A significant challenge is generating a dynamically consistent future reference trajectory without relying on privileged states from 
-            demonstrations or slow counterfactual planning. We propose <strong>DexFuture</strong>, a hierarchical system that couples a high-level 
+            demonstrations or slow counterfactual planning. We propose <em>DexFuture</em>, a hierarchical system that couples a high-level 
             Future-State Visuomotor Target Predictor with a low-level Target-Conditioned Structured Dexterous Policy. 
             Conditioned on egocentric RGB, proprioceptive and geometric history, 
             the high-level predictor constructs structured hand-tool-object visuomotor embeddings and uses a horizon-conditioned transformer to 
@@ -174,7 +174,7 @@
         <div class="content has-text-justified">
             <div class="content has-text-justified">
                 <p>
-                  <li>We propose <strong>DexFuture</strong>, a hierarchical future-state visuomotor targeting framework that couples a high-level Future-State Visuomotor Target Predictor with a low-level Target-Conditioned Structured Dexterous Policy, separating coarse future-state guidance from high-frequency dexterous action execution.</li>
+                  <li>We propose <em>DexFuture</em>, a hierarchical future-state visuomotor targeting framework that couples a high-level <em>Future-State Visuomotor Target Predictor</em> with a low-level <em>Target-Conditioned Structured Dexterous Policy</em>, separating coarse future-state guidance from high-frequency dexterous action execution.</li>
                   <li>We introduce an action-free future target prediction module that replaces privileged future demonstration targets with predicted targets conditioned on RGB and proprioceptive/geometric history, using structured visuomotor tokenization and sparse multi-horizon target prediction.</li>
                   <li>We validate DexFuture on challenging bimanual dexterous tool-use tasks, showing that predicted targets recover most of the privileged-oracle performance, strongly outperform no-target control, and execute substantially faster than DexWM-style CEM planning.</li>
                 </p>
@@ -187,7 +187,7 @@
         <div class="content has-text-justified">
             <div class="content has-text-justified">
                 <p>
-                  <strong>DexFuture</strong> is a hierarchical system for bimanual dexterous tool use that couples a high-level <em>Future-State Visuomotor Target Predictor</em> with a low-level <em>Target-Conditioned Structured Dexterous Policy</em>. 
+                  <em>DexFuture</em> is a hierarchical system for bimanual dexterous tool use that couples a high-level <em>Future-State Visuomotor Target Predictor</em> with a low-level <em>Target-Conditioned Structured Dexterous Policy</em>. 
                   It removes the need for privileged future demonstration targets by predicting a coarse future-state target trajectory from visuomotor history. 
                   The predicted targets provide long-horizon guidance for the low-level policy to execute high-frequency contact-rich actions.
                 </p>
@@ -203,10 +203,10 @@
         <div class="content has-text-justified">
             <div class="content has-text-justified">
                 <p>
-    <strong>A.</strong> Given recent egocentric RGB observations and proprioceptive/geometric states, we construct structured visuomotor tokens instead of passing dense image patches to the predictor. Hand-link embeddings are obtained by projecting each link into the image and cross-attending to local visual patches, while tool/object embeddings are built by anchor-aligned visual sampling and entity-state/geometry embeddings.
-    <strong>B.</strong> The Horizon-Conditioned Target Transformer takes the structured embedding history as memory and predicts sparse future structured embeddings at horizons $\mathcal{H}=\{0,2,4,\ldots,16\}$. Future embeddings are first initialized from the latest observed state and modulated with learned future-index embeddings and Fourier horizon encodings, then refined via self-attention and cross-attention to the visuomotor history using AdaLN-Zero transformer blocks. The predicted embeddings are decoded into auxiliary geometric states for supervision, and a $900$-D future target used by the low-level policy.
-    <strong>C.</strong> The target-conditioned structured dexterous policy consumes the current state and the predicted target, tokenizes the bimanual hand-tool-object system into per-link and scene embeddings, and outputs a bimanual action distribution through a transformer encoder and policy head.
-    <strong>D.</strong> During receding-horizon execution, a single forward pass of the visuomotor predictor produces a target trajectory over multiple time steps. Intermediate targets are linearly interpolated to allow high-frequency feedback control. The predictor is trained with supervised latent, state, and target losses, while the policy is trained with PPO against a tracking reward.
+    <em>A.</em> Given recent egocentric RGB observations and proprioceptive/geometric states, we construct structured visuomotor tokens instead of passing dense image patches to the predictor. Hand-link embeddings are obtained by projecting each link into the image and cross-attending to local visual patches, while tool/object embeddings are built by anchor-aligned visual sampling and entity-state/geometry embeddings.
+    <em>B.</em> The Horizon-Conditioned Target Transformer takes the structured embedding history as memory and predicts sparse future structured embeddings at horizons $\mathcal{H}=\{0,2,4,\ldots,16\}$. Future embeddings are first initialized from the latest observed state and modulated with learned future-index embeddings and Fourier horizon encodings, then refined via self-attention and cross-attention to the visuomotor history using AdaLN-Zero transformer blocks. The predicted embeddings are decoded into auxiliary geometric states for supervision, and a $900$-D future target used by the low-level policy.
+    <em>C.</em> The target-conditioned structured dexterous policy consumes the current state and the predicted target, tokenizes the bimanual hand-tool-object system into per-link and scene embeddings, and outputs a bimanual action distribution through a transformer encoder and policy head.
+    <em>D.</em> During receding-horizon execution, a single forward pass of the visuomotor predictor produces a target trajectory over multiple time steps. Intermediate targets are linearly interpolated to allow high-frequency feedback control. The predictor is trained with supervised latent, state, and target losses, while the policy is trained with PPO against a tracking reward.
                 </p>
               </div>
               <div class="b-dics" style="float: center">
@@ -260,11 +260,14 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{,
-  author    = {},
-  title     = {},
-  journal   = {},
-  year      = {},
+    <pre><code>@misc{physgraph,
+      title={PhysGraph: Physically-Grounded Graph-Transformer Policies for Bimanual Dexterous Hand-Tool-Object Manipulation}, 
+      author={Runfa Blark Li and David Kim and Xinshuang Liu and Keito Suzuki and Dwait Bhatt and Nikola Raicevic and Xin Lin and Ki Myung Brian Lee and Nikolay Atanasov and Truong Nguyen},
+      year={2026},
+      eprint={2603.01436},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2603.01436}, 
 }</code></pre>
   </div>
 </section>
